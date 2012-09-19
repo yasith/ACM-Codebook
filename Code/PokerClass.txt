@@ -1,0 +1,109 @@
+class PokerHand implements Comparable < PokerHand >
+{
+    int [] rank = new int [13];
+    int [] suit = new int [4];
+    int [] cmp ;
+    PokerHand ( String [] hand ) {
+        for ( String s: hand ) {
+            switch (s. charAt (0)) {
+                case 'T': ++ rank [8]; break ;
+                case 'J': ++ rank [9]; break ;
+                case 'Q': ++ rank [10]; break ;
+                case 'K': ++ rank [11]; break ;
+                case 'A': ++ rank [12]; break ;
+                default : ++ rank [s. charAt (0) - '2'];                                    
+                     break;
+            }
+
+            switch (s. charAt (1)) {
+                case 'C': ++ suit [0]; break ;
+                case 'D': ++ suit [1]; break ;
+                case 'H': ++ suit [2]; break ;
+                case 'S': ++ suit [3]; break ;
+                default : throw new RuntimeException ();
+            }
+        }
+
+        cmp = new int [] { straightFlush (), fourOfAKind (),
+        fullHouse (), flush (), straight (),
+        threeOfAKind (), twoPairs (), pair (),
+        highCard ()
+    };
+}
+ 
+int flush () {
+    for ( int s: suit )
+        if(s == 5) return highCard ();
+    return -1;
+}
+ 
+int straight () {
+    for ( int i = 12; i >= 4; --i) {
+        boolean good = true ;
+        for ( int j = 0; j <= 4; ++j)
+            if( rank [i - j] != 1) {
+                good = false ;
+                break ;
+            }
+        if( good ) return i;
+    }
+    return -1;
+}
+ 
+int highCard() {
+    int ret = 0;
+    for (int i = 12; i >= 0; --i) if(rank[i] == 1)
+        ret = ret * 13 + i;
+        return ret ;
+}
+ 
+int straightFlush () {
+    return flush () == -1 ? -1 : straight ();
+}
+ 
+int fourOfAKind () {
+    for (int i = 12; i >= 0; --i) 
+        if(rank [i] == 4) return i;
+    return -1;
+}
+ 
+int threeOfAKind () {
+    for ( int i = 12; i >= 0; --i)
+        if( rank [i] == 3) return i; 	
+    return -1;
+}
+ 
+ 
+int pair() {
+    int ret = p (1);
+    return ret==-1 ? -1 : ret*13*13*13+highCard();
+}
+ 
+int twoPairs() {
+    int ret = p (2);
+    return ret == -1 ? -1 : ret * 13 + highCard ();
+} 	
+ 
+int fullHouse() {
+    int ret = pair ();
+    return ret == -1 ? -1 : threeOfAKind ();
+}
+
+int p(int goal) {
+    int pc = 0;
+    int ret = 0;
+    for ( int i = 12; i >= 0; --i) 
+        if(rank [i]== 2) {
+            ret = ret * 13 + i;
+            ++pc;
+        }
+    return pc == goal ? ret : -1;
+}
+ 
+public int compareTo (PokerHand h){
+    int index = 0;
+    while(index<cmp.length&&cmp[index]==h.cmp[ index ])
+        ++index;
+        return index==cmp. length ? 0 : cmp[index]-h.cmp[index];
+    }
+}

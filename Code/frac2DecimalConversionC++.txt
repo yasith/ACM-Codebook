@@ -1,0 +1,14 @@
+string D2S(int nume, int deno, int precision)
+{
+   stringstream ss;
+   ss << nume/deno;
+   nume %= deno;
+   if (precision != 0) ss << ".";
+   while (precision-- > 0)
+   {
+      nume *= 10;
+      ss << nume/deno;
+      nume %= deno;
+   }
+   return ss.str();
+}

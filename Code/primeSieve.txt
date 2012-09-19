@@ -1,0 +1,11 @@
+int MAX_S = 1000000;
+boolean p[] = new boolean[MAX_S];
+void primeSieve(boolean p[])
+{
+   Arrays.fill(p, true);
+   p[0] = p[1] = false;
+   for (int i=2; i*i<p.length; i++)
+      if (p[i])
+         for (int j=i*i; j<p.length; j+=i)
+            p[j] = false;
+}

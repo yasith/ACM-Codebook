@@ -1,0 +1,43 @@
+#include <vector>
+#include <sstream>
+#include <iostream>
+#include <string>
+#include <algorithm>
+ 
+using namespace std;
+ 
+bool seen[400][600];
+ 
+int dfs(int i, int j)
+{
+ 	if( i>=400 || i<0 || j>=600 || j<0 || seen[i][j]) return 0;
+ 	seen[i][j] = true;
+ 	int A=1;
+ 	A+=dfs(i-1, j);
+ 	A+=dfs(i+1, j);
+ 	A+=dfs(i, j-1);
+ 	A+=dfs(i, j+1);
+ 	return A;
+}
+ 
+vector <int> sortedAreas(vector <string> recs) {
+	vector<int> areas;
+ 	for(int i=0;i<recs.size();i++)
+ 	  {
+ 	   	int i1, i2, j1, j2;
+ 		stringstream ss(recs[i]);
+ 	    ss>>i1>>j1>>i2>>j2;
+ 		
+ 		for(int ii=i1;ii<=i2;ii++)
+ 		 	for(int jj=j1;jj<=j2;jj++)
+ 	    	 	seen[ii][jj]=true;
+ 	   }
+ 	  
+ 	   for(int i=0;i<400;i++)
+ 	  	for(int j=0;j<600;j++)
+ 	         if(!seen[i][j])
+ 	            areas.push_back(dfs(i, j));
+ 	                      
+ 	sort(areas.begin(), areas.end());
+   	return areas;
+}

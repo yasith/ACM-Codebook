@@ -1,0 +1,18 @@
+//solve the parametric equation for t given 2 pairs of points for each line
+//the t solved is for the line represented by points a1 and a2
+double parametric_solver(pair <int,int> a1, pair<int,int> a2, pair<int,int> b1, pair<int,int> b2)
+{
+   int num=(a1.first-b1.first)*(b2.second-b1.second)-(a1.second-b1.second) * (b2.first-b1.first);
+   int den=(a2.second-a1.second)*(b2.first-b1.first)-(a2.first-a1.first) * (b2.second-b1.second);
+  //when denominator is 0, it means that the two lines are parallel
+   return den==0 ? inf : 1.*num/den;
+}
+
+//plug in the t from parametric_solver in to the parametric equations for line a 
+//to get the intersection point
+pair<double,double> intersection(double t, pair <int,int> a1, pair<int,int> a2)
+{
+   double x=a1.first+t*(a2.first-a1.first);
+   double y=a1.second+t*(a2.second-a1.second);
+   return make_pair(x,y);
+}

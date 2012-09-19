@@ -1,0 +1,131 @@
+//Crazy Calculator
+#include <string>
+#include <stack>
+#include <cstdio>
+#include <algorithm>
+#include <sstream>
+#include <iostream>
+#include <map>
+#define max_n 1025
+using namespace std;
+char in[max_n+1];
+struct op
+{
+  int p;
+  char c;
+  bool leftA;
+  op( char cc, int pp, bool la)
+  {
+	c = cc;
+	p = pp;
+	leftA = la;
+  }
+  op()
+  {
+  }
+};
+map<char, op> ops;
+bool isD(char c){return c <= '9' && c>= '0';}
+int operate(char c, int a, int b)
+{
+  switch(c)
+	{
+	case '-': return a-b;
+	case '+': return a+b;
+	case '*': return a*b;
+	case '/': return a/b;
+	default: return -1;
+	}
+}
+int eval(string s)
+{
+  stack<int> numstk;
+  stack<op> opstk;
+  for(int i = 0 ; i < s.length(); i++)
+	{
+  	if( isD( s[i] ) )
+    	{
+      	int n = 0;
+      	while( isD( s[i] ) && i < s.length())
+	        {
+              n = 10* n + (s[i] - '0');
+              i++;
+            }
+      	i--;
+          numstk.push(n);
+    	}
+  	else{
+    	op curop = ops[ s[i] ];
+    	if(curop.leftA)
+      	while(!opstk.empty() && curop.p <= opstk.top().p)
+            {
+              char stkop = opstk.top().c;
+              opstk.pop();
+              int b = numstk.top();
+              numstk.pop();
+              int a = numstk.top();
+              numstk.pop();
+              int c = operate(stkop, a, b);
+              numstk.push(c);
+            }
+    	else
+      	while(!opstk.empty() && (curop.p < opstk.top().p || (curop.p ==opstk.top().p && curop.c != opstk.top().c) ))
+            {
+              char stkop = opstk.top().c;
+              opstk.pop();
+              int b = numstk.top();
+              numstk.pop();
+              int a = numstk.top();
+              numstk.pop();
+              int c = operate(stkop, a, b);
+              numstk.push(c);
+            }
+        opstk.push(curop);
+ 	 }
+	}
+  return numstk.top();
+ 
+}
+ 
+int main()
+{
+  int T;
+  scanf("%d", &T);
+  int c= 0;
+  while(T--)
+	{
+  	if( c > 0)
+        printf("\n");
+  	c++;
+  	ops.clear();
+  	char opchr[5];
+  	map<char, char> rep;
+  	for(int i = 0 ; i < 4; i++)
+    	{
+      	scanf("%s\n", opchr);
+          rep[opchr[1]] = opchr[0];
+          ops[opchr[0]] = op(opchr[0], opchr[2] - '0', opchr[3] == 'L');
+    	}
+  	string s;
+  	char c;
+  	while( (c = getchar()) != '\n' && (c != EOF))
+    	{
+      	while( true ){
+        	if( rep.find(c) != rep.end() )
+              s += rep[c];
+        	else
+               s+= c;
+        	if ( (c = getchar()) == '\n' || (c == EOF) )
+              break;
+      	}
+      	string cpy = s;
+ 	     s+='E';
+      	ops['E'] = op('E',-1, true);
+      	int ans = eval(s);
+      	printf("%s = %d\n", cpy.c_str(), ans);
+      	// cout<<s<<endl;
+            s = "";	
+    	}
+  	
+	}
+}

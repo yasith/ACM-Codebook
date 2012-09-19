@@ -1,0 +1,62 @@
+#include<stdio.h>
+//Convert number 1 to 10
+void unit(int n){
+    switch(m)
+    {
+    case 3: cout << “I”;
+    case 2: cout << “I”;
+    case 1: cout << “I”; break;
+    case 4: cout << “I”;
+    case 5: cout << “V”; break;
+    case 6: cout << “VI”; break;
+    case 7: cout << “VII”; break;
+    case 8: cout << “VIII”; break;
+    case 9: cout << “IX”; break;
+    }
+}
+
+//Convert number 10 to 100
+void ten(int n)
+{
+    switch(n)
+    {
+    case 3: cout << “X”;
+    case 2: cout << “X”;
+    case 1: cout << “X”; break;
+    case 4: cout << “X”;
+    case 5: cout << “L”; break;
+    case 6: cout << “LX”; break;
+    case 7: cout << “LXX”; break;
+    case 8: cout << “LXXX”; break;
+    case 9: cout << “XC”; break;
+    }
+}
+
+//Convert number 100-500
+void hundred(int n)
+{
+    switch(n)
+    {
+    case 3: cout << “C”; 
+    case 2: cout << “C”;
+    case 1: cout << “C”; break;
+    case 4: cout << “C”;
+    case 5: cout << “<”; break;
+    }
+}
+
+void roman(int n)
+{
+    int a, i;
+    if(n>=500)
+    {
+        a = n/500;
+        for(i = 1; i<=a; i++)
+            cout << “M”;
+    }
+    n%=500;
+    hundred(n/100);
+    n%=100;
+    ten(n/10);
+    unit(n%10);
+}

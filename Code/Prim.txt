@@ -1,0 +1,31 @@
+struct Edge
+{
+   int x, w;
+   Edge(int a, int b) { x=a, w=b; }
+   bool operator < (const Edge & b) const
+   { return w > b.w; } //Since the priority queue sorts in descending order
+};
+
+vector<Edge> graph[10004]; //adjacency list
+bool seen[10004]; //keeps track of visited nodes
+
+long long prim()
+{
+   priority_queue<Edge> pq;
+   seen[0] = true; //initial case
+   for (int j=0; j<graph[0].size(); j++)
+      pq.push(graph[0][j]);
+   long long ret = 0;
+   while (!pq.empty())
+   {
+      Edge c = pq.top();
+      pq.pop();
+      if (seen[c.x]) continue;
+      else seen[c.x] = true; //mark
+      ret += c.w; //add weight
+      for (int j=0; j<graph[c.x].size(); j++)
+         if (!seen[ graph[c.x][j].x ])
+            pq.push(graph[c.x][j]);
+   }
+   return ret;
+}

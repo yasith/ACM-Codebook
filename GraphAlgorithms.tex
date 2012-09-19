@@ -1,0 +1,166 @@
+% =============================================	%
+%												%
+%		         Graph Algorithms               %
+%												%
+% =============================================	%
+
+\chapter{Graph Algorithms}
+\chapterinfo{}
+    %------------------------------
+	\section{Breadth-First Search}
+	%\sectioninfo{}
+	
+	Breadth-First Search (BFS) is a single source shortest path algorithm that 
+	runs in linear time on the number of edges and vertices of a graph 
+	($O\left(E+V\right)$ runtime). It is implemented using a queue 
+	(first-in-first-out data structure). Starting from a given source, the 
+	algorithm will process vertices in order by the minimum number of edges 
+	from the source. This allows the algorithm to break early if looking for a 
+	single vertex. However, the BFS will only allow you to find the shortest 
+	path between vertices in an unweighted graph.\\
+	\ \\
+	{\bf Note} : Using an adjacency matrix for a graph will cause BFS to run in 
+	$O\left(V^2\right)$ time since you will be searching through V vertices for 
+	each vertex in the graph. An easy way to think about this is that a 
+	$V \times V$ matrix contains $V^2$ edges. To achieve $O\left(E+V\right)$ 
+	time, use an adjacency list.\\
+	{\bf Examples} :
+	An implementation of a BFS is to find the minimum number of moves to get a 
+	knight in chess from one spot to another on a board. Here is an example of 
+	how to code this.\\
+	
+	\lstinputlisting[language=C++,label=samplecode,caption=Knight BFS (C++)]{Code/BFSKnightJava.txt}
+    \ \\
+    A similar problem is finding the minimum number of steps required to go from 
+    a starting location to a target moving only up, down, left, or right.
+    
+    In the graph, {\bf X} means an obstacle and a {\bf *} is the target. \\
+    
+    \lstinputlisting[language=Java,label=samplecode,caption=Steps BFS (Java)]{Code/BFSStepsJava.txt}
+    
+	%------------------------------
+	\section{Depth-First Search}
+	%\sectioninfo{}
+	
+	Depth-First Search (DFS) is an algorithm for traversing or searching through 
+	a graph. It runs in linear time ($O\left(E+V\right)$ runtime) if searching 
+	without repeating vertices. An  exhaustive search with repetitions will 
+	push the algorithm to run in factorial time (since you will try all possible 
+	permutations with this method). The algorithm functions by starting at a root 
+	or beginning and searching down an entire path until it reaches a point with 
+	no more unseen connections. It then backtracks along the path until it finds 
+	an unseen path from the current vertex. This search may not lead to a 
+	shortest path but can be used to determine if a node is reachable from 
+	another node and various other things. It can be done recursively using the 
+	sustem stack or using an explicit stack.\\
+	\ \\
+	{\bf Note: } Think of this as exploring a cave. You go as far down a cave as 
+	possible, planting torches to keep track of where you have been. When you 
+	hit a dead end you backtrack until you find another corridor you have not 
+	seen yet. \\
+	{\bf Examples} :
+	Finding the area of connected components in a grid can be done with a DFS. 
+	This is called the ''Flood-Fill Algorithm". Here is a problem that returns 
+	a  vector of areas of shapes in order.\\
+	
+	\lstinputlisting[language=C++,label=samplecode,caption=Flood-Fill Algorithm (C++)]{Code/DFSFloodFill.txt}
+	
+	%------------------------------
+	\section{Dijkstra's Algorithm}
+	%\sectioninfo{}
+	
+	Dijkstra's algorithm is a single source shortest path algorithm for a 
+	weighted graph (with non-negative weights). It runs in $O(E\log{V})$ time using 
+	a priority queue. It is very similar to a BFS except it searches for the 
+	next closest vertex in terms of actual distance rather than number of edges 
+	away. Note that it will not work with negative weights! \\
+	\ \\
+    {\bf Warning} : If you are going to be calling the method several times, make sure 
+    you set all the elements in bool seen[]  to false after every run, otherwise 
+    you might get incorrect results in all runs except the first.
+    {\bf Complexity} : $O(E\log{V})$\\
+    
+    \lstinputlisting[language=C++,label=samplecode,caption=Dijkstra's Algorithm (C++)]{Code/DijkstrasC++.txt}
+	
+	%------------------------------
+	\section{Floyd-Warshall Algorithm}
+	%\sectioninfo{}
+	
+	Computes the All-Pairs Shortest Path of a graph in $O(N^3)$. This algorithm 
+	also computes the shortest paths for a graph with negative weights. If there 
+	is a negative cycle, then there should be a path from a vertex to itself 
+	with negative weight.
+	
+	\lstinputlisting[language=C++,label=samplecode,caption=Floyd-Warshall Algorithm (C++)]{Code/FloydWarshall.txt}
+	
+	%------------------------------
+	\section{Prim's Algorithm}
+	%\sectioninfo{}
+	
+	Prim's algorithm is used to find the minimum spanning tree (MST) for a 
+	weighted undirected graph. It runs in $O(E\log{V})$ time.\\
+	\ \\
+    {\bf Note} : It does not matter which vertex you start off from since all vertices 
+    will be included in the end. The graph must also be undirected for this to 
+    work.\\
+    
+    \lstinputlisting[language=C++,label=samplecode,caption=Prim's Algorithm (C++)]{Code/Prim.txt}
+	
+	%------------------------------
+	\section{Bellman-Ford Algorithm}
+	%\sectioninfo{}
+	
+	Bellman-Ford algorithm is a single source shortest path algorithm for 
+	weighted graphs. It is primarily used for graphs with negative edge weights. 
+	If there are no negative edge weights, then use Dijkstra's algorithm for 
+	faster runtime. Bellman-Ford's runtime is $O(EV)$ since it makes V passes 
+	through E edges. It can detect negative cycles in a graph by running one 
+	more time to see if it finds a shorter path to a vertex from the source. If 
+	no negative cycles are found, then Bellman-Ford will find the shortest path 
+	from a single source to all other vertices.
+ 
+    The predecessor array (pi) is filled up so you can retrieve the shortest 
+    path if you desire by tracing back the indices. If you don't need to 
+    remember the actual path, you are only interested in the value of the 
+    shortest path and thus should remove the 4 lines that use the array pi.
+    
+    \lstinputlisting[language=C++,label=samplecode,caption=Bellman-Ford Algorithm (C++)]{Code/BellmanFord.txt}
+
+	%------------------------------
+	\section{Bridge Detection}
+	%\sectioninfo{}
+	
+	Bridges are edges in a graph that if removed will disconnect the graph. It 
+	can be found in a linear search with a DFS.
+	
+	\lstinputlisting[language=C++,label=samplecode,caption=Bridge Detection (C++)]{Code/BridgeDetection.txt}
+	
+	%------------------------------
+	\section{Articulation Point Detection}
+	%\sectioninfo{}
+	
+	Articulation points are vertices in a graph that if removed will disconnect 
+	the graph. It can be found in a simple linear search with a DFS.
+	
+	\lstinputlisting[language=C++,label=samplecode,caption=Articulation Point Detection (C++)]{Code/ArticulationPointDetection.txt}
+	
+	%------------------------------
+	\section{Edmond's Karp Algorithm (Maximum-Flow)}
+	%\sectioninfo{}
+	
+	The Edmond's Karp Maximum-Flow algorithm computes the feasible flow through 
+	a single-source, single-sink flow network that is maximum.  This version 
+	runs in $O(VE^2)$ time.
+	
+	\lstinputlisting[language=C++,label=samplecode,caption=Edmond's Karp Algorithm (C++)]{Code/MaxFlow.txt}
+	
+	%------------------------------
+	\section{Minimum-Cost Maximum-Flow Algorithm}
+	%\sectioninfo{}
+	
+	Used to find the max-flow of a network. Returns the min-cost through the 
+	reference parameter.
+	
+	\lstinputlisting[language=C++,label=samplecode,caption=Min-Cost Max Flow (C++)]{Code/MinCostMaxFlow.txt}
+	
+	%------------------------------

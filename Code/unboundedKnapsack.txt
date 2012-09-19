@@ -1,0 +1,13 @@
+int[] unboundedKnapsack(int[] weight, int[] value, int size)
+{
+   int[] dp = new int[size+1];
+   Arrays.fill(dp, -1);
+   dp[0] = 0;
+   int n = weight.length;
+   for (int i=0; i<=size; i++)
+      if (dp[i]!=-1)
+         for (int j=0; j<n; j++)
+            if (i+weight[j]<=size) //if this fits
+               dp[ i+weight[j] ] = Math.max(dp[ i+weight[j] ], dp[i]+value[j]);
+   return dp;
+}

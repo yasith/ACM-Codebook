@@ -1,0 +1,35 @@
+//Assume N is the number of vertices in our graph.
+const int sentinel=1000000000;
+int dist[N][N];
+int next[N][N]; //next[i][j] is the next vertex from i to j.
+
+void Floyd_Warshall()
+{
+   for(int i=0; i<N; i++)
+      for(int j=0; j<N; j++)
+         if(dist[i][j]!=sentinel)
+            next[i][j]=j;
+   for(int k=0; k<N; k++)
+      for(int i=0; i<N; i++)
+         if(dist[i][k]!=sentinel)
+            for(int j=0; j<N; j++)
+               if(dist[k][j]!=sentinel && dist[i][j]>dist[i][k]+dist[k][j])  
+               {
+                  dist[i][j]=dist[i][k]+dist[k][j];
+                  next[i][j]=next[i][k];
+               }
+}
+
+vector <int> build_path(int start, int end)
+{
+   vector <int> path;
+   path.push_back(start);
+   int cur = start;
+   while(next[cur][end]!=end)
+   {
+      cur=next[cur][end];
+      path.push_back(cur);
+   }
+   path.push_back(end);
+   return path;
+}

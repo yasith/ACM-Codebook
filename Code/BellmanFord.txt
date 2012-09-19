@@ -1,0 +1,36 @@
+struct Edge //denotes to an edge of weight w that goes from x to y
+{
+   int u, v, w;
+   Edge() {}
+   Edge(int a, int b, int c)
+   { u = a; v = b; w = c; }
+};
+#define MAX_E 2048
+#define MAX_V 1024
+Edge graph[ MAX_E ];
+int d[ MAX_V ];
+int pi[ MAX_V ];
+bool bellman_ford(int n, int m, int source)
+{
+   fill(d, d+n, 1000000000); //fill with +inf
+   fill(pi, pi+n, -1000000000); //predecessor array
+   //initial conditions
+   d[source] = 0;
+   pi[source] = -1; //root
+   for (int i=0; i < n-1; i++)
+   {
+      bool relaxed = false; //this is a little optimization I added
+      for (int j=0; j<m; j++)
+      if (d[ graph[j].v ] > d[ graph[j].u ] + graph[j].w) //relaxation step
+      {
+         d[ graph[j].v ] = d[ graph[j].u ] + graph[j].w; //found a better path
+         pi[ graph[j].v ] = graph[j].u;
+         relaxed = true;
+      }
+      if (!relaxed) break; //will break early if it finishes early
+   }
+   for (int i=0; i<m; i++) //check for negative cycle
+      if (d[ graph[i].v ] > d[ graph[i].u ] + graph[i].w)
+         return false;
+   return true;
+}

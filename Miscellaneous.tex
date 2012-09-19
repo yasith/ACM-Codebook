@@ -1,0 +1,48 @@
+% =============================================	%
+%												%
+%		            Miscellaneous               %
+%												%
+% =============================================	%
+
+\chapter{Miscellaneous}
+\chapterinfo{}
+	%------------------------------
+	\section{Kirchoff's Matrix}
+	%\sectioninfo{}
+	Kirchoff's matrix allows one to calculate the number of spanning trees in a 
+	graph as follows:
+	
+	1. Compute the Laplacian Matrix as follows\\
+	\indent\indent $A[i][i]$ = degree of vertex $i$\\
+	\indent\indent $A[i][j]$ = -1 if vertex $i$ and vertex $j$ are connected, 0 otherwise
+	
+	2. The number of spanning trees is equal to the determinant of any cofactor 
+	matrix. (The original matrix with the first row and column removed is a 
+	valid cofactor)
+	
+	%------------------------------
+	\section{Josephus Problem}
+	%\sectioninfo{}
+	
+	Of the first $n$ numbers, if you pick and remove the $kth$ number, determine the last 
+	one standing.
+	
+	\lstinputlisting[language=Java,label=samplecode,caption=Josephus Problem (Java)]{Code/josephus.txt}
+	
+	%------------------------------
+	\section{Poker Class}
+	%\sectioninfo{}
+	
+	\lstinputlisting[language=Java,label=samplecode,caption=Poker Class (Java)]{Code/PokerClass.txt}
+    
+    %------------------------------
+	\section{Decimal to Roman Numeral Converter}
+	%\sectioninfo{}
+	
+	\lstinputlisting[language=C++,label=samplecode,caption=Decimal to Roman Numeral Converter (C++)]{Code/Dec2RomanNumeral.txt}
+
+	%------------------------------
+	\section{Expression Parsing}
+	%\sectioninfo{}
+	
+	\lstinputlisting[language=C++,label=samplecode,caption=Expression Parsing (C++)]{Code/ExpressionParsing.txt}

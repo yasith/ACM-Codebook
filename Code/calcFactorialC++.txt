@@ -1,0 +1,9 @@
+long long* calcFactorial(int n) 
+{
+	long long * f = new long long[n+1];
+	f[0] = 1;
+	for (int i=1; i<=n; i++)
+		f[i] = i*f[i-1];
+
+	return f;
+}

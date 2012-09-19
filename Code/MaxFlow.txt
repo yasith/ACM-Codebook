@@ -1,0 +1,37 @@
+int n;
+int cap[250][250];//cap[u][v]=0 if edge e doesn’t exist cap(e)=capacity(e)-flow(e)
+int prev[250];
+int maxFlow(int s, int t)
+{
+   int ans = 0;
+   while(true)
+   {
+      fill(prev, prev + n, -1);
+      queue<int> q;
+      q.push(s);
+      while(!q.empty() && prev[t] == -1)
+      {
+         int u = q.front(); q.pop();
+         for(int v = 0; v < n; v++)
+         {
+            if( v!=s && prev[v] == -1 && cap[u][v] > 0)
+            {
+               prev[v] = u;
+               q.push(v);
+            }
+         }
+      }
+      if(prev[t] == -1)
+         break;
+      int bottle_neck = inf;
+      for(int v = t, u = prev[v]; u!=-1; v = u, u = prev[v])
+         bottle_neck = min(bottle_neck, cap[u][v]);
+      for(int v = t, u = prev[v]; u!=-1; v = u, u = prev[v])
+      {  
+          cap[u][v] -= bottle_neck;
+          cap[v][u] += bottle_neck;
+      }
+      ans += bottle_neck;
+   }
+   return ans;
+}

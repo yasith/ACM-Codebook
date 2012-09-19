@@ -1,0 +1,43 @@
+public class FenwickTree2D
+{
+   int[][] tree;
+   FenwickTree2D(int max_x, int max_y)
+   { 
+      tree = new int[max_x+2][max_y+2]; 
+   }	
+   int get(int x, int y)
+   {		
+      int ret = 0;
+      while (x > 0)
+      {
+         int ty = y;
+         while (ty > 0)
+         {
+            ret += tree[x][ty];
+            ty -= (ty & -ty);
+         }
+         x -= (x & -x);
+      }	
+      return ret;
+   }
+
+   void set(int x, int y, int val)
+   {
+      val -= get(x, y);
+      update(x, y, val);
+   }
+
+   void update(int x, int y, int val)
+   {
+      while (x<tree.length)
+      {
+         int ty = y;
+         while (ty<tree[0].length)
+         {
+            tree[x][y] += val;
+            ty += (ty & -ty);
+         }
+         x += (x & -x);
+      }
+   }
+}

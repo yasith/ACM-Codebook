@@ -1,0 +1,29 @@
+int grid[101][101];
+int pre[101], low[101], parent[101];
+ 
+void dfs(int v, int & cnt, int & crit, int n)
+{
+   pre[v]=low[v]=cnt++;
+   int child=0;
+   bool critical=false;
+   for(int w=1; w<=n; w++) //This code uses 1-base. Change to 0-base as necessary.
+      if(grid[v][w])
+         if(pre[w]==-1)
+         {
+            child++;
+            parent[w]=v;
+            dfs(w, cnt, crit, n);
+            if(low[w] < low[v])
+               low[v]=low[w];
+       //if any child's lowest preorder number referenced by a backedge is
+       //greater than or equal to parent's preorder number, then that parent is
+       //an articulation point
+            if(low[w] >= pre[v] && !critical && pre[v]!=0)
+               crit++, critical=true;
+         }
+         else if(parent[w]!=v && pre[w] < pre[v]) //A backedge
+            if(pre[w] < low[v])
+               low[v]=pre[w];
+   if(pre[v]==0 && child>1) 
+       	crit++;
+}

@@ -1,0 +1,12 @@
+double spherical_distance(p_lat,p_long,q_lat,q_long)
+{
+    acos(sin(p_lat)*sin(q_lat)+cos(p_lat)*cos(q_lat)*cos(p_long - q_long))*r;
+}
+
+since cos(a-b) = cos(a)*cos(b) + sin(a)*sin(b), we can simplify the above method to:
+
+double spherical_distance(p_lat,p_long,q_lat,q_long)
+{
+    acos(sin(p_lat)*sin(q_lat)+cos(p_lat)*cos(q_lat)*cos(p_long)*cos(q_long)+
+                    cos(p_lat)*cos(q_lat)*sin(p_long)*sin(q_long))*r;
+}

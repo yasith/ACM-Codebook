@@ -1,0 +1,124 @@
+% =============================================	%
+%												%
+%		        Dynamic Programming        		%
+%												%
+% =============================================	%
+
+\chapter{Dynamic Programming}
+\chapterinfo{}
+	%------------------------------
+	\section{Unbounded Knapsack}
+	%\sectioninfo{}
+	
+	Given an infinite amount certain kinds of items, each with a weight and a 
+	value, determine the number of each item to include in a collection so that 
+	the total weight is less than a given limit and the total value is as large 
+	as possible.\\
+	\ \\
+	{\bf Parameters} : An array of weights, an array of values, and an integer 
+	representing the size of the knapsack.\\
+	{\bf Returns} : An array of length size+1, the value at index 'i' is the 
+	optimal value obtained with weight i. A value of -1 means that weight i is 
+	not possible to obtain.\\
+	{\bf Complexity} : $O(NT)$ ($N$ = number of items, $T$ = size of knapsack)\\
+	
+	\lstinputlisting[language=Java,label=samplecode,caption=Unbounded Knapsack (Java)]{Code/unboundedKnapsack.txt}
+	
+	%------------------------------
+	\section{Bounded (0/1) Knapsack}
+	%\sectioninfo{}
+	
+	Given certain kinds of items, each with a weight and a value, determine the 
+	largest total value you can take without exceeding your weight limit.\\
+    \ \\
+    {\bf Note} : You can't take more than one of each item.\\
+    {\bf Parameters} : An array in weights, an array of values, and an integer 
+    representing the size of the knapsack.\\
+    {\bf Returns} : A 2D array of size $size+1 \times knapsack\_size+1$, were the value at index 
+    $(i,j)$ is optimal value of a subset of the first $i$ elements that weight a total 
+    of $j$. A value of -1 means that it’s impossible to find.\\
+    {\bf Complexity} : $O(NM)$ ($N$ = number of items, $T$ = Size of knapsack)\\
+
+    \lstinputlisting[language=Java,label=samplecode,caption=Bounded Knpasack (Java)]{Code/boundedKnapsack.txt}
+	
+	%------------------------------
+	\section{Longest Increasing Subsequence}
+	%\sectioninfo{}
+	
+	{\bf Complexity} : $O(N\log{N})$
+    The idea behind this version is:
+    Imagine you are playing a game where you have to place a sequence of numbers 
+    into stacks. The first number always creates the first stack, then after, 
+    you place the rest of the sequence following these rules:
+    1.\indent You consider the cards in the same order you received them.
+    2.\indent To insert a card in a stack, it must be smaller than all other 
+    cards in that stack. Equivalently, it must be smaller than the top of the 
+    stack
+    3.\indent If there is no stack that can accept a certain card, make a new 
+    stack to the right of the last stack.
+    4.\indent If there exist multiple stacks which can accept a card, pick the 
+    leftmost stack.
+    5.\indent Whenever you insert a card into a stack that is not the first, 
+    save a pointer from that card to the top of the previous stack.
+                                                                                                                      	
+    I claim that the number of stacks is the length of the LIS and if you follow 
+    the pointers from the very end you can build the LIS.\\
+    \ \\                                                                                                           	                                           
+    {\bf Note} : It easy to see that the top of all of the stacks will be in increasing 
+    order from left to right. (proof via contradiction). Therefore you can find which stack to insert a card 
+into in log(k) if you use a binary search, where k is the number of stack.\\
+
+    \lstinputlisting[language=Java,label=samplecode,caption=Longest Increasing Subsequence (Java)]{Code/longestStrictlyIncreasingSubsequence.txt}
+	
+	%------------------------------
+	\section{Longest Common Subsequence}
+	%\sectioninfo{}
+	
+	This algorithm will find the longest common sub-sequence between two 
+	strings, $a$ and $b$. $M$ and $N$ are the lengths of $a$ and $b$, 
+	respectively. Runs in $O(n^2)$.
+	
+	\lstinputlisting[language=Java,label=samplecode,caption=Longest Common Subsequence (Java)]{Code/longestCommonSubsequence.txt}
+	
+	%------------------------------
+	\section{Longest Common Substring}
+	%\sectioninfo{}
+	
+	{\bf Complexity} : $O(n^2)$
+	
+	\lstinputlisting[language=Java,label=samplecode,caption=Longest Common Substring (Java)]{Code/longestCommonSubstring.txt}
+
+	%------------------------------
+	\section{Maximum Contiguous Sum}
+	%\sectioninfo{}
+	
+	{\bf Problem Statement} : Find the maximum sum of contiguous elements in an array\\
+    {\bf Parameters} : An array of integers\\
+    {\bf Returns} : Max sum found\\
+    {\bf Complexity} : $O(N)$ where $N$ is the length of the array\\
+    
+    \lstinputlisting[language=Java,label=samplecode,caption=Maximum Continuous Sum (Java)]{Code/maximumcontiguoussum.txt}
+
+	
+	%------------------------------
+	\section{Maximum Rectangular Sum}
+	%\sectioninfo{}
+	
+	{\bf Problem Statement} : Finds the maximum sum of all subrectangles in an NxN matrix.
+ 
+    Use a partial sums array on the columns in order to be able to compute the 
+    sum of the elements from $g[a][j]$ through $g[b][j]$, for any $a$,$b$ $(a<b)$ 
+    in $O(1)$
+ 
+    Then we traverse through all possible horizontal boundaries $y=a$ and $y=b$ and 
+    build a 1D array where $array[i]$ = $\sum_{k=a}^{b}g[k][i]$. Then run the 
+    maximum contiguous 1D sum algorithm on that array.
+	
+	%------------------------------
+	\section{Levenshtein Distance (Edit Distance)}
+	%\sectioninfo{}
+	
+	The Levenshtein (Edit) Distance is the minimum number of changes in spelling 
+	required to change one word into another.
+	
+	\lstinputlisting[language=Java,label=samplecode,caption=Edit Distance (Java)]{Code/LevenshteinDistance.txt}

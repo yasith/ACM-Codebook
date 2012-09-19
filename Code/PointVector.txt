@@ -1,0 +1,29 @@
+class Point implements Comparable<Point> //Point/Vector Class
+{
+   double x, y;
+   Point(double a, double b) { x = a; y = b; }
+ 
+   Point  plus (Point b) { return new Point(x + b.x, y + b.y); }
+   Point  minus (Point b) { return new Point(x - b.x, y - b.y); }
+   Point  times (double s) { return new Point(x * s, y * s); }
+   Point  divide (double s) { return new Point(x / s, y / s); }
+   double dot (Point b) { return this.x * b.x + y * b.y; }
+   double cross (Point b) { return this.x * b.y - y * b.x; }
+   double norm () { return this.dot(this); }
+   double length () { return Math.sqrt(norm()); }
+   Point  unit () { return this.divide(length()); }
+   Point  rot90 () { return new Point(-y, x); }
+   double dist (Point b) { return b.minus(this).length(); }
+   Point  midPoint(Point a, Point b) { return a.plus(b).divide(2); }
+ 
+   public String toString() { return String.format("(%f, %f)", x, y); }
+
+   public int compareTo(Point b)
+   {
+      if (x < b.x) return -1;
+      if (x > b.x) return 1;
+      if (y < b.y) return -1;
+      if (y > b.y) return 1;
+      return 0;
+   }
+}

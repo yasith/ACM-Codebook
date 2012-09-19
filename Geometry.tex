@@ -1,0 +1,58 @@
+% =============================================	%
+%												%
+%		            Geometry               		%
+%												%
+% =============================================	%
+
+\chapter{Geometry}
+\chapterinfo{}
+	%------------------------------
+	\section{Line Intersection}
+	%\sectioninfo{}
+	
+	The following programs are used to find the intersection between two lines 
+	using parametric equations. The time solved through the system of parametric 
+	equations is important depending on the lines. Some things to note are the 
+	following:\\
+	\indent Line Segment : $t \ge 0 $ and $t \le 1$ \\
+	\indent Infinite Line : $t \in \Re$ \\
+	\indent Ray : $t \ge 0$ \\
+	
+	\lstinputlisting[language=C++,label=samplecode,caption=Line Intersection (C++)]{Code/LineIntersection.txt}
+	
+	%------------------------------
+	\section{Point/Vector Class}
+	%\sectioninfo{}
+	
+	\lstinputlisting[language=Java,label=samplecode,caption=Point/Vector Class (Java)]{Code/PointVector.txt}
+	
+	%------------------------------
+	\section{Circle Class}
+	%\sectioninfo{}
+	
+	\lstinputlisting[language=Java,label=samplecode,caption=Circle Class (Java)]{Code/Circle.txt}
+	
+	%------------------------------
+	\section{Minimum Enclosing Circle Algorithm}
+	%\sectioninfo{}
+	
+	\lstinputlisting[language=Java,label=samplecode,caption=Minimum Enclosing Circle (Java)]{Code/MinimumEnclosingCircle.txt}
+	
+	%------------------------------
+	\section{Andrew's Algorithm (Convex Hull)}
+	%\sectioninfo{}
+	
+	\lstinputlisting[language=Java,label=samplecode,caption=Convex Hull (Java)]{Code/ConvexHull.txt}
+	
+	%------------------------------
+	\section{Longitude and Latitude}
+	%\sectioninfo{}
+	
+	{\bf Problem} : What is the spherical/geographical distance between two cities $p$ 
+	and $q$ on earth with radius $r$, denoted by $(p\_lat,p\_long)$ to $(q\_lat,q\_long)$. 
+	All coordinates are in radians. (i.e. convert $[-180..180]$ range of longitude 
+	and $[-90..90]$ range of latitudes to $[-\pi..\pi]$ respectively.
+	
+	\lstinputlisting[language=Java,label=samplecode,caption=Latitude and Longitude Conversion (Java)]{Code/LongitudeLatitude.txt}
+	
+	%------------------------------

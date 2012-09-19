@@ -1,0 +1,71 @@
+public static final BigInteger ZERO = BigInteger.ZERO;
+public static final BigInteger ONE = new BigInteger("1");
+public static final BigInteger nONE = new BigInteger("-1");
+ 
+	public static class triplet
+	{
+        BigInteger d, x, y;
+    	   public triplet(BigInteger a, BigInteger b, BigInteger c)
+    	   {
+            d = a ;
+            x = b;
+            y = c;
+    	   }
+	}
+	
+	static triplet Euclid(BigInteger a, BigInteger b)
+	{
+    	   if (b.compareTo(ZERO) == 0) 
+            return new triplet(a, ONE, ZERO);
+        triplet tp = Euclid(b, a.mod(b));
+    	   return new triplet( tp.d, tp.y 	 	 	 	  	 	  	tp.x.subtract((a.divide(b)).multiply(tp.y)));
+	}
+  
+ 
+ 	final static int SZ= 1000;
+	static int T;   	
+	public static final BigInteger ZERO = BigInteger.ZERO;
+	public static final BigInteger ONE = new BigInteger("1");
+     public static final BigInteger nONE = new BigInteger("-1");
+	public static class triplet
+	{
+        BigInteger d, x, y;
+    	   public triplet(BigInteger a, BigInteger b, BigInteger c)
+    	   {
+            d = a ;
+            x = b;
+            y = c;
+    	   }
+	}
+	
+	static triplet Euclid(BigInteger a, BigInteger b)
+	{
+    	   if (b.compareTo(ZERO) == 0) 
+            return new triplet(a, ONE, ZERO);
+        triplet tp = Euclid(b, a.mod(b));
+    	   return new triplet( tp.d, tp.y,
+                     tp.x.subtract((a.divide(b)).multiply(tp.y)));
+	}
+ 
+	public static BigInteger inverseMod(BigInteger a, 
+                                                      BigInteger n)
+	{
+        triplet t = Euclid(a, n);
+        BigInteger m = t.x.mod(n);
+    	   return m.add(n).mod(n);
+	}
+ 
+	public static BigInteger[] CRT(BigInteger[] a, BigInteger[] n)
+	{
+        BigInteger N = ONE;
+    	   for(int i = 0 ; i < T; i++)
+            N = N.multiply(n[i]);
+        BigInteger Z = ZERO;
+        for(int i = 0 ; i < T; i++)
+        {
+            BigInteger ni = N.divide(n[i]);
+            BigInteger ni_1 = inverseMod(ni, n[i]);
+            Z = Z.add(a[i].multiply(ni).multiply(ni_1)).mod(N);
+        }
+    	   return new BigInteger[]{Z, N};
+	}

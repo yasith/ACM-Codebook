@@ -1,0 +1,45 @@
+public class FenwickTree1D
+{
+   int[] tree;
+   FenwickTree1D(int max_size)
+   { tree = new int[max_size+2]; }
+   int get(int x)
+   {		
+      int ret = 0;
+      while (x>0)
+      {
+         ret += tree[x];
+         x -= (x & -x);
+      }	
+      return ret;
+   }
+   void set(int x, int val)
+   {
+      val -= get(x);
+      update(x, val);
+   }
+   void update(int x, int val)
+   {
+      while (x<tree.length)
+      {
+         tree[x] += val;
+         x += (x & -x);
+      }
+  }
+//a faster way of getting just one value.
+ int getSingle(int x)
+ {
+    int ret = tree[x];
+        if (x > 0)
+        {
+            int z = x - (x & -x);
+            x--;
+            while (x != z)
+            {
+              ret -= tree[x];
+              x -= (x & -x);
+            }
+        }	
+        return ret;
+      }
+}

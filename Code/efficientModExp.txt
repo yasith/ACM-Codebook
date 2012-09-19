@@ -1,0 +1,12 @@
+long modPow(long a, long b, long c) //a^b (mod c)
+{
+   	long p = 1;
+   	a %= c; //just in case a is already large
+   	while (b > 0)
+   	{
+   	    if (b%2==1 p = (p*a)%c;
+   	    a = (a*a)%c;  //square, careful not to overflow
+   	    b >>= 1;  //move on to next bit
+   	}
+   	return p;
+}

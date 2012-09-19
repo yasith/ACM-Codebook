@@ -1,0 +1,36 @@
+int longestIncreasingSubsequence(int[] n)
+{
+   /*
+    n is the sequence
+    p represents the predecessor array
+    m represents the stack of cards
+   */
+   //initial conditions
+   m[0] = 0;
+   p[0] = -1;
+   int len_m = 1;
+   for (int i=1; i<len; i++)
+   {
+      int  lo = 0, hi = len_m-1, ave;
+      while (lo <= hi)
+      {
+         ave = (lo+hi)/2;
+         if (n[ m[ave] ] == n[i]) break; //repeated element, place onto pile
+         else if (n[ m[ave] ] < n[i]) lo = ave + 1;
+         else if (hi != ave) hi = ave;
+         else break; //didn't find it
+      }
+      if (lo<=hi) //if binary search was successful
+      {
+          m[ave] = i; //place n[i] on top of the correct "stack"
+          if (ave!=0) p[i] = m[ave-1]; //set the back pointer
+          else p[i] == -1; //in first stack, so it has no predecessor
+      }
+      else  //must create a new stack
+      {
+          m[len_m] = i;
+          p[i] = m[len_m-1];
+          len_m++; //update number of stacks
+      }
+   }
+}

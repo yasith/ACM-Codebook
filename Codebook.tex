@@ -1,0 +1,165 @@
+% =============================================	%
+%												%
+%		University of Miami ACM Codebook		%
+%												%
+% =============================================	%
+
+\documentclass[10pt]{report}
+
+% shows the margins
+%\usepackage[showframe]{geometry}
+%===============================================================================
+
+\usepackage{listings}
+\usepackage{courier}
+\usepackage{color}
+\usepackage{caption}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[top=1.0in, bottom=1.0in, left=1.0in, right=1.0in]{geometry}
+\usepackage{titlesec}
+\usepackage[pdftex]{graphicx}
+
+%===============================================================================
+
+\titleformat{\chapter}{\bf\LARGE}{\thechapter}{1em}{}
+\titleformat{\section}{\bf\Large}{\thesection}{1em}{}
+\titleformat{\subsection}{\bf\large}{\thesubsection}{1em}{}
+
+%===============================================================================
+
+\definecolor{myorange}{RGB}{255,205,50}
+\definecolor{darkorange}{RGB}{255,105,50}
+\definecolor{darkgreen}{RGB}{0,120,0}
+\definecolor{mygreen}{RGB}{0,190,0}
+\definecolor{mygray}{RGB}{245,245,245}
+\definecolor{codegreen}{RGB}{0,150,0}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+%===============================================================================
+
+\lstset{
+ 	basicstyle=\normalsize\ttfamily,
+ 	numbers=left,
+ 	numberstyle=\footnotesize,
+ 	numbersep=5pt,
+ 	tabsize=2,
+ 	extendedchars=true,
+ 	breaklines=true,
+ 	keywordstyle=\color{codegreen},
+	frame=tlbr,
+	%keywordstyle=[1]\textbf,    
+	%keywordstyle=[2]\textbf,    
+	%keywordstyle=[3]\textbf,    
+	%keywordstyle=[4]\textbf,
+ 	stringstyle=\color{red}\ttfamily,
+ 	showspaces=false,
+ 	showtabs=false,
+ 	xleftmargin=20pt,
+ 	xrightmargin = 0pt,
+ 	framexleftmargin=16pt, %controls position of left frame line
+ 	framexrightmargin=3pt, %controls position of right frame line
+ 	framexbottommargin=3pt,
+ 	framextopmargin=3pt,
+ 	backgroundcolor=\color{mygray},
+ 	showstringspaces=false,
+ 	%framesep = 2pt        
+}
+\lstloadlanguages{
+	%C
+	%C++
+	Java
+}
+
+\DeclareCaptionFont{white}{\color{black}}
+\DeclareCaptionFormat{listing}{\colorbox{myorange}{\parbox{\textwidth}{\hspace{15pt}#1#2#3}}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white, singlelinecheck=false, margin=0pt, font={bf,normalsize}, skip = 10pt}
+
+%===============================================================================
+\makeatletter
+% Basically the same as for `\l@section` etc, just `\@nodottedtocline` instead of `\@dottedtcline`:
+\newcommand*\l@chapterinfo{\@nodottedtocline{0}{0.0em}{1.5em}}
+\newcommand*\l@sectioninfo{\@nodottedtocline{1}{1.5em}{2.3em}}
+\newcommand*\l@subsectioninfo{\@nodottedtocline{2}{3.8em}{3.2em}}
+\newcommand*\l@subsubsectioninfo{\@nodottedtocline{3}{7.0em}{4.1em}}
+\newcommand*\l@paragraphinfo{\@nodottedtocline{4}{10em}{5em}}
+\newcommand*\l@subparagraphinfo{\@nodottedtocline{5}{12em}{6em}}
+
+% Copied from the book class macro `\@dottedtocline`. Removed the dots and page number
+\def\@nodottedtocline#1#2#3#4#5{%
+  \ifnum #1>\c@tocdepth \else
+    \vskip \z@ \@plus.2\p@
+    {\leftskip #2\relax \rightskip \@tocrmarg \parfillskip -\rightskip
+     \parindent #2\relax\@afterindenttrue
+     \interlinepenalty\@M
+     \leavevmode
+     \@tempdima #3\relax
+     \advance\leftskip \@tempdima \null\nobreak\hskip -\leftskip
+     {#4}\nobreak
+     \leaders\hbox{$\m@th
+        \mkern \@dotsep mu\hbox{\,}\mkern \@dotsep
+        mu$}\hfill
+     \nobreak
+     \hb@xt@\@pnumwidth{\hfil\normalfont \normalcolor }%
+     \par}%
+  \fi}
+
+\makeatother
+
+\def\chapterinfo#1{
+    \addcontentsline{toc}{chapterinfo}{
+    \noexpand\numberline{}#1}
+}
+\def\sectioninfo#1{
+    \addcontentsline{toc}{sectioninfo}{
+    \noexpand\numberline{}#1}
+}
+\def\subsectioninfo#1{%
+    \addcontentsline{toc}{subsectioninfo}{
+    \noexpand\numberline{}#1}
+}
+
+%====================
+% reduces spacing for mod declaration
+\makeatletter
+\def\imod#1{\allowbreak\mkern10mu({\operator@font mod}\,\,#1)}
+\makeatother
+
+%===============================================================================
+
+
+%\title{\Huge{\color{darkgreen}University of Miami \\ACM Codebook}}
+
+\begin{document}
+\newcommand{\comments}[1]{}
+
+%\maketitle
+%\includegraphics{Images/umlogo.jpeg}
+
+\input{./Title.tex}
+
+\tableofcontents
+
+%===============================================================================
+
+%==============================
+\input{Mathematics}
+%==============================
+\input{GraphAlgorithms}
+%==============================
+\input{Geometry}
+%==============================
+\input{DynamicProgramming}
+%==============================
+\input{TreeDataStructures}
+%==============================
+\input{Miscellaneous}
+%==============================
+\input{LanguageSpecificReferences}
+%==============================
+
+%===============================================================================
+
+
+\end{document}
+

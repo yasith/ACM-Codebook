@@ -1,0 +1,39 @@
+struct node
+{
+   char key;
+   node * next ,*children;
+   node(char chr, node * a, node * c)
+   {
+      key = chr;
+      next = a;
+      children = c;
+   }
+};
+
+struct Trie
+{
+   node * root;
+   int size;
+   Trie(){size = 0; root = NULL;}
+   void add(string & s, int x = 0)
+   {
+      add(s, root, x);
+   }
+   void add(string & s, node *& N, int x)
+   {
+      if(x == s.length())return;
+      if(N == NULL)
+      {
+         size++;
+         N =  new node(s[x], N, NULL);
+         add(s, N->children, x+1);
+         return;
+      }
+      if(N->key == s[x])
+      {
+         add(s, N->children, x+1);
+         return;
+      }
+      add(s, N->next, x); 
+   }        
+};

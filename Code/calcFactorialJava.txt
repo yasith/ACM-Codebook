@@ -1,0 +1,10 @@
+import java.math.BigInteger;
+BigInteger[] calcFactorial(int n)
+{
+    BigInteger[] f = new BigInteger[n+1];
+    f[0] = BigInteger.ONE;
+    for (int i=1; i<=n; i++)
+        f[i] = new BigInteger(i+"").multiply(f[i-1]);
+
+    return f;
+}

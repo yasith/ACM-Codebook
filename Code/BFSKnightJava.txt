@@ -1,0 +1,61 @@
+//Directional arrays that specify the possible moves a Knight can do
+int di[] = {1, 1, -1, -1, 2, 2, -2, -2};
+int dj[] = {2, -2, 2, -2, 1, -1, 1, -1};
+ 
+//State describes the position and number of moves to get to that position
+struct state
+{
+ 	int i, j, d;
+ 	state(int xx, int yy, int cc)
+ 	{
+ 	 	i = xx;
+ 	 	j = yy;
+ 	 	d = cc;
+ 	}
+ 	bool valid()
+ 	{
+ 	 	return i>=0 && i<8 && j>=0 && j<8;
+ 	}
+ 	state(){}
+};
+ 
+//Seen array to avoid repetitions of positions on a chess board
+bool seen[8][8];
+ 
+int bfs(int si, int sj, int ei, int ej)
+{
+ 	for(int i=0;i<8;i++)
+ 	 	for(int j=0;j<8;j++)
+ 	 	 	seen[i][j]=false;
+ 	
+ 	seen[si][sj]=true;
+ 	state start= state(si, sj,0);
+ 	 	 	
+ 	queue<state> Q;
+ 	Q.push( start);
+     while(!Q.empty())
+ 	{
+ 	 	state curS = Q.front();
+ 	 	Q.pop();
+ 
+ 	 	int curi = curS.i;
+ 	 	int curj = curS.j;
+ 	 	int curd = curS.d;
+ 
+ 	 	if(curi==ei && curj==ej)
+ 	 	 	return curd; 	
+ 	 	 	 	
+ 	 	for(int d =0; d<8; d++)
+ 	 	{
+ 	 	 	int newi = curi+di[d];
+ 	 	 	int newj = curj+dj[d];
+ 	 	 	int newd = curd+1;
+ 	 	 	state ns = state(newi, newj, newd);
+ 	 	 	if(ns.valid() && !seen[newi][newj])
+ 	 	 	{
+ 	 	 	 	seen[newi][newj] = true;
+ 	 	 	 	Q.push(ns);
+ 	 	 	}
+ 		}
+ 	}
+}

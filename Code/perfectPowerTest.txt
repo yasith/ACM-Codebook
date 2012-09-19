@@ -1,0 +1,29 @@
+public static final BigInteger ZERO = BigInteger.ZERO;
+public static final BigInteger ONE = new BigInteger("1");
+public static final BigInteger nONE = new BigInteger("-1");
+public static final BigInteger TWO = new BigInteger("2");
+	public static BigInteger[] test(BigInteger n)
+	{
+    	    int k = n.bitLength();
+    	    for(int e = 2; e <= k + 1; e++)
+          {
+               int b1 = (k-1)/e;
+               int b2 = (k+e-1)/e;
+               BigInteger u  = TWO.pow(b1);
+               BigInteger v  = TWO.pow(b2);
+               do
+               {
+                    BigInteger w = u.add(v).divide(TWO);
+                    BigInteger z = w.pow(e);
+                    if(z.compareTo(n) == 0)
+                        return new BigInteger[]{w, 
+                                            new BigInteger(e+"")};
+                        if(z.compareTo(n) < 0 )
+                            u = w.add(ONE);
+                        else
+                            v = w;
+                }
+                while(u.compareTo(v) < 0);
+            }
+    	      return new BigInteger[0];
+	 }

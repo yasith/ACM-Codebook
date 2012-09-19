@@ -1,0 +1,21 @@
+import java.io.*; 
+import java.util.regex.*; 
+import java.math.*; 
+import java.util.*; 
+import static java.util.Arrays.*; 
+import static java.lang.Integer.*; 
+import static java.lang.Math.*; 
+import static java.math.BigInteger.*;  
+import static java.util.Collections.*;  
+
+public class ClassName
+{
+	public static void main(String[] args) throws Exception
+	{
+		BufferedReader r = new BufferedReader(
+                        new InputStreamReader(System.in));
+		//or
+		Scanner in = new Scanner(System.in); 
+              //this is much slower than BufferedReader but simpler to use
+	}
+}

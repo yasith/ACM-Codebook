@@ -1,0 +1,10 @@
+BigInteger calcCombinations (int n, int k)
+{
+   k = Math.min(k, n-k);
+   BigInteger ret = BigInteger.ONE ;
+   for ( int i=n-k+1; i<=n; i++)
+      ret = ret.multiply(BigInteger.valueOf(i));
+   for ( int i=2; i<=k; i++)
+      ret = ret.divide(BigInteger.valueOf(i));
+   return ret ;
+}

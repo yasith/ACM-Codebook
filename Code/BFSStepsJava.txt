@@ -1,0 +1,53 @@
+import java.util.*;
+import java.io.*;
+ 
+public class BreadthFirstSearch
+{
+   //Testing code. Can be removed.
+   public static void main(String[] args){
+ 	
+   }
+ 	
+   static int bfs(char[][] g, int si, int sj)
+   {
+  	int[] di = {1, -1, 0,  0};  //directional arrays
+  	int[] dj = {0,  0, 1, -1};
+ 	 	
+ 	  Queue<State> q = new LinkedList<State>();
+ 	 	
+ 	  q.offer(new State(si, sj, 0));
+ 	  g[si][sj] = 'X';   //don't forget to mark it as seen!
+ 	 	
+ 	  while (!q.isEmpty())
+ 	  {
+ 	 	State c = q.poll();
+ 	 	 	
+ 	 	 for (int k=0; k<4; k++)
+ 	 	 {
+ 	 		int ni = c.i+di[k];
+ 	 	 	int nj = c.j+dj[k];
+ 	 	 	 	
+ 	 	 	if (ni>=0 && ni<g.length  && nj>=0 && nj<g[0].length && g[ni][nj]!='X')
+ 	 	 	{
+ 	 	 	   if (g[ni][nj]=='*') return c.dist+1;
+ 	 	 	 	 	
+ 	 	 	   q.offer(new State(ni, nj, c.dist+1)); 
+ 	 	 	   g[ni][nj] = 'X';
+ 	 	 	}
+ 	 	 }
+ 	  }
+ 	 	
+ 	  return -1;
+   }
+}
+
+class State  //helper class
+{
+   int i, j, dist;
+   State(int a, int b, int c)
+   {
+  	i = a;
+ 	  j = b;
+ 	  dist = c;
+   }
+}

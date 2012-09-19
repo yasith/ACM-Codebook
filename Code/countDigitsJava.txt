@@ -1,0 +1,12 @@
+double countDigits(long n)
+{
+    double sum;
+    if(n==0) return 1.0;
+    else
+    {
+        sum = 0.0;
+        for(long i = 1; i<=n; i++)
+            sum+=Math.log10(i); 
+    }
+    return Math.floor(sum)+1;
+}

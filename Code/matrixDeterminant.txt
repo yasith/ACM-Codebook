@@ -1,0 +1,32 @@
+double determinant()
+{
+   assert(n == m); //must be a square matrix
+   Matrix L = new Matrix(n, n); 
+   for (int i=0; i<n; i++)
+      for (int j=0; j<n; j++)
+         L.mat[i][j] = mat[i][j];
+   double ret = 1.;
+   for (int i=0; i<n; i++)
+   {
+      if (abs(L.mat[i][i]) < 1e-9) //a zero along the pricipal diagonal
+      {
+         for (int j=i+1; j<n; j++)
+         if (abs(L.mat[j][i]) > 1e-9) //swap row j with row i
+         {
+            L.swapRow(j, i);
+            ret *= -1;
+               break;
+         }
+      }
+      if (abs(L.mat[i][i]) < 1e-9) return 0.;
+      for (int j=i+1; j<n; j++) 
+         if (abs(L.mat[j][i]) > 1e-9)  //found non-zero element
+         {
+            double f = L.mat[j][i]/L.mat[i][i];
+            for (int jj=0; jj<n; jj++) //subtract scaled row
+            L.mat[j][jj] -= f*L.mat[i][jj];
+         }
+      ret *= L.mat[i][i];
+   }		
+   return ret;
+}

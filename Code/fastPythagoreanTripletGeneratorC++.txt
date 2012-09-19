@@ -1,0 +1,32 @@
+struct Triplet
+{
+   int x, y, z;
+   Triplet() {}
+   Triplet(int a, int b, int c) { x=a; y=b; z=c; }   
+};
+vector<Triplet> generate_triplets(int MAX_N)
+{
+   set<Triplet> s;        	
+   vector<Triplet> ans;
+   queue<Triplet> q;
+   Triplet st(3,4,5); //initial value
+   q.push(st);
+   while (!q.empty()) //BFS
+   {
+      Triplet C = q.front();
+      q.pop();
+      int a = C.x, b = C.y, c = C.z;
+      ans.push_back(Triplet(a, b, c)); //Add primitive triplet
+      //Add all multiples of primitive triplets
+      //remove this if you only need primitive triplets
+      for (int i=2; c*i<=MAX_N; i++)
+         ans.push_back(Triplet(a*i, b*i, c*i));
+      if (2*a - 2*b + 3*c <= MAX_N)
+         q.push(Triplet(a-2*b+2*c,2*a-b+2*c,2*a-2*b+3*c));
+      if (2*a + 2*b + 3*c <= MAX_N)
+         q.push(Triplet(a+2*b+2*c,2*a+b+2*c,2*a+2*b + 3*c));
+      if (-2*a + 2*b + 3*c <= MAX_N)
+         q.push(Triplet(-a+2*b+2*c,-2*a+b+2*c,-2*a+ 2*b+3*c));
+   }
+   return ans;
+}

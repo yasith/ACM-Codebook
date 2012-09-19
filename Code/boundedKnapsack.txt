@@ -1,0 +1,16 @@
+int[][] boundedKnapsack(int[] weight, int[] value, int size)
+{
+   int n = weight.length; //number of items
+   int[][] dp = new int[n][size+1];
+   for (int[] a : dp) Arrays.fill(a, -1);
+   dp[0][0] = 0; //initial condition 1
+   if (weight[0] <= size) dp[0][weight[0]] = value[0]; //initial condition 2
+   for (int i=1; i<n; i++)
+      for (int j=0; j<=size; j++)
+      {
+         dp[i][j] = dp[i-1][j];
+         if (j-weight[i]>=0 && dp[i][j] < dp[i-1][j-weight[i]] + value[i])  	
+            dp[i][j] = dp[i-1][j-weight[i]] + value[i];
+      }
+  return dp;
+} 

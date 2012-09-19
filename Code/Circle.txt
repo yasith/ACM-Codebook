@@ -1,0 +1,52 @@
+class Circle
+{
+   Point c;
+   double r;
+   ArrayList<Point> inside;
+	
+   Circle(double x, double y, double z)
+   {
+      c = new Point(x, y);
+      r = z;
+      inside = new ArrayList<Point>();
+   }
+ 
+   Circle(Point a, double b)
+   {
+      c = a;
+      r = b;
+      inside = new ArrayList<Point>();
+      inside.add(a);
+   }
+	
+   Circle(Point a, Point b)
+   {
+      c = a.plus(b).divide(2);
+      r = c.dist(a)+.1;
+      inside = new ArrayList<Point>();
+   }
+	
+   Circle(Point x, Point y, Point z)
+   {
+      Point m = x.plus(y).divide(2);
+      Point n = y.minus(x).rot90().unit();
+      Point xm = m.minus(x);
+      Point zm = m.minus(z);
+      double t = -(xm.dot(xm) - zm.dot(zm)) / (2 * (xm.dot(n) - zm.dot(n)));
+      c = m.plus(n.times(t));
+      r = x.dist(c)+.1
+      inside = new ArrayList<Point>();
+   }
+ 
+   void add(Point a)
+   { inside.add(a); }
+ 
+   boolean contains(Point b)
+   { return c.minus(b).norm()<=r*r; }
+	
+   double area()
+   { return Math.PI*r*r; }
+	
+   public String toString()
+   { return c+" r = "+r; }
+}

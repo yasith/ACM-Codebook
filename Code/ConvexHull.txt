@@ -1,0 +1,46 @@
+struct Point
+{
+    int x, y;
+    Point() {}
+    Point(int a, int b)
+    { x = a; y = b; }
+
+    bool operator < (const Point & a) const
+    {
+        if (x==a.x) return y<a.y;
+        else return x<a.x;
+    }
+};
+
+#define MAX_P 1000
+Point set_p[MAX_P];   //The points should be stored here
+//left turn: AB X AC>0, right turn: AB X AC < 0. Inclusive will detect colinear points
+bool left_turn(Point a, Point b, Point c) 
+{ return (b.x-a.x)*(c.y-a.y)-(c.x-a.x)*(b.y-a.y) >= 0; }
+ 
+//Computes the convex hull of a sorted set of n points (set_p)
+vector<Point> convexHull(int n)
+{
+    sort(set_p, set_p+n); //Points must be sorted for this to work.
+    vector<Point> upper, lower; //upper & lower hulls
+
+    //initial states
+    upper.push_back(set_p[0]);
+    upper.push_back(set_p[1]);
+    lower.push_back(set_p[n-1]);
+    lower.push_back(set_p[n-2]);
+
+    for (int i=2; i<n; i++)
+    {
+        upper.push_back(set_p[i]);
+        lower.push_back(set_p[n-1-i]);
+        int s1 = upper.size(), s2 = lower.size();
+        while (s1>=3 && left_turn(upper[s1-3], upper[s1-2], upper[s1-1]))
+            upper.erase(upper.begin() + s1-- -2); //update size
+        while (s2>=3 && left_turn(lower[s2-3], lower[s2-2], lower[s2-1]))
+            lower.erase(lower.begin() + s2-- -2); //update size
+    }
+    for (int i=1; i+1<lower.size(); i++) //combine hulls, without overlap
+        upper.push_back(lower[i]);
+    return upper;
+}

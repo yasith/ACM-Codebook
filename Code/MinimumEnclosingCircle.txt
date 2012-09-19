@@ -1,0 +1,48 @@
+public class MEC
+{
+   static Circle MEC(ArrayList<Point> p) 
+   {
+      ArrayList<Point> inside = new ArrayList<Point>();
+      Circle c;
+      if (p.size()>=2)
+         c = new Circle(p.get(0), p.get(1));
+      else return new Circle(p.get(0).x, p.get(0).y, .13);
+      inside.add(p.get(0));
+      if (p.size()>=2) inside.add(p.get(1))
+
+      for (int i=2; i<p.size(); i++)
+      {
+         if (!c.contains(p.get(i))) c = MEC1(p.get(i), inside);
+   	  inside.add(p.get(i));
+      }
+      c.r += .1;
+      c.inside.clear();
+      c.inside.addAll(inside);
+      return c;
+   }
+   		
+   static Circle MEC1(Point a, ArrayList<Point> p) //helper
+   {
+      Circle c = new Circle(a, p.get(0));
+      ArrayList<Point> inside = new ArrayList<Point>();
+      inside.add(p.get(0));
+
+      for (int i=1; i<p.size(); i++)
+      {
+         if (!c.contains(p.get(i))) c = MEC2(a, p.get(i), inside);
+         side.add(p.get(i));
+      }
+      return c;
+   }
+	
+   static Circle MEC2(Point a, Point b, ArrayList<Point> p) //helper
+   {
+      Circle c = new Circle(a, b);
+      for (int i=0; i<p.size(); i++)
+      {
+         if (!c.contains(p.get(i)))
+            c = new Circle(a, b, p.get(i));
+      }
+      return c;	
+   }	
+}
